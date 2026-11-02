@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit II – Introduction to PHP &amp; String Handling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="logo" href="unit1.html"><span class="logo-badge">K</span><span class="logo-text">Krish Kalwan</span></a>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="menu-btn">&#9776;</label>
+    <nav class="menu">
+      <a href="unit1.html">Unit I</a>
+      <a href="unit2.html" class="active">Unit II</a>
+      <a href="unit3.html">Unit III</a>
+      <a href="unit4.html">Unit IV</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="unit-tag">UNIT II</span>
+  <h1>Introduction to PHP &amp; String Handling</h1>
+  <p>PHP syntax, variables, operators, decisions, loops, and working with strings.</p>
+  <div class="chips">
+    <span>Krish Kumar Kalwan</span>
+    <span>Roll No: 4270/25</span>
+    <span>BCA 2nd Year</span>
+  </div>
+</section>
+
+<div class="topics">
+  <a href="#syntax">Syntax</a>
+  <a href="#vars">Variables</a>
+  <a href="#types">Data Types</a>
+  <a href="#ops">Operators</a>
+  <a href="#decide">Decisions</a>
+  <a href="#loops">Loops</a>
+  <a href="#mix">PHP + HTML</a>
+  <a href="#strings">Strings</a>
+  <a href="#quiz">Quiz</a>
+</div>
+
+<main class="container">
+
+  <div class="card" id="syntax">
+    <h2><span class="num">1</span> Basic Syntax</h2>
+    <p>PHP is a server-side scripting language used to build dynamic websites. PHP code is written inside <code>&lt;?php ... ?&gt;</code> tags, every statement ends with a semicolon, and the file is saved with a <code>.php</code> extension.</p>
+<pre><code>&lt;?php
+  echo "Hello, World!";   // prints text
+  // single-line comment
+  # another comment
+  /* multi-line comment */
+?&gt;</code></pre>
+  </div>
+
+  <div class="card" id="vars">
+    <h2><span class="num">2</span> Variables and Constants</h2>
+    <p>A <b>variable</b> stores data and always starts with a <code>$</code> sign. A <b>constant</b> holds a value that cannot change once it is set.</p>
+<pre><code>&lt;?php
+  $name = "Krish";          // variable
+  $age  = 20;
+
+  define("COLLEGE", "ABC College");   // constant using define()
+  const COURSE = "BCA";               // constant using const
+
+  echo $name . " studies " . COURSE;
+?&gt;</code></pre>
+    <div class="note">Variable names are case-sensitive: <code>$name</code> and <code>$Name</code> are different.</div>
+  </div>
+
+  <div class="card" id="types">
+    <h2><span class="num">3</span> Data Types</h2>
+    <div class="table-wrap"><table>
+      <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+      <tr><td>String</td><td>Text</td><td><code>"Hello"</code></td></tr>
+      <tr><td>Integer</td><td>Whole number</td><td><code>25</code></td></tr>
+      <tr><td>Float</td><td>Decimal number</td><td><code>9.99</code></td></tr>
+      <tr><td>Boolean</td><td>True or false</td><td><code>true</code></td></tr>
+      <tr><td>Array</td><td>Many values in one variable</td><td><code>[1, 2, 3]</code></td></tr>
+      <tr><td>NULL</td><td>No value</td><td><code>null</code></td></tr>
+    </table></div>
+  </div>
+
+  <div class="card" id="ops">
+    <h2><span class="num">4</span> Operators and Expressions</h2>
+    <p>Operators perform actions on values. An expression is a combination of values and operators that produces a result, such as <code>$a + $b * 2</code>.</p>
+    <div class="table-wrap"><table>
+      <tr><th>Category</th><th>Operators</th><th>Example</th></tr>
+      <tr><td>Arithmetic</td><td><code>+ - * / % **</code></td><td><code>$a + $b</code></td></tr>
+      <tr><td>Assignment</td><td><code>= += -= *= /=</code></td><td><code>$x += 5</code></td></tr>
+      <tr><td>Comparison</td><td><code>== === != &gt; &lt; &gt;= &lt;=</code></td><td><code>$a == $b</code></td></tr>
+      <tr><td>Logical</td><td><code>&amp;&amp; || !</code></td><td><code>$a &gt; 1 &amp;&amp; $b &lt; 5</code></td></tr>
+      <tr><td>String</td><td><code>.</code> (concatenate)</td><td><code>"Hi " . $name</code></td></tr>
+      <tr><td>Increment</td><td><code>++ --</code></td><td><code>$i++</code></td></tr>
+    </table></div>
+  </div>
+
+  <div class="card" id="decide">
+    <h2><span class="num">5</span> Decision Making Statements</h2>
+    <p>These let the program choose what to do based on a condition: <code>if</code>, <code>if...else</code>, <code>elseif</code> and <code>switch</code>.</p>
+<pre><code>&lt;?php
+  $marks = 72;
+
+  if ($marks &gt;= 75) {
+      echo "Distinction";
+  } elseif ($marks &gt;= 40) {
+      echo "Pass";
+  } else {
+      echo "Fail";
+  }
+
+  switch ($day) {
+      case "Sun": echo "Holiday"; break;
+      default:    echo "Working day";
+  }
+?&gt;</code></pre>
+  </div>
+
+  <div class="card" id="loops">
+    <h2><span class="num">6</span> Looping Constructs</h2>
+    <p>Loops repeat a block of code. PHP has four main loops.</p>
+    <div class="grid2">
+      <div class="mini"><h4>for</h4><p>Used when you know how many times to repeat.</p></div>
+      <div class="mini"><h4>while</h4><p>Repeats while a condition is true.</p></div>
+      <div class="mini"><h4>do...while</h4><p>Runs at least once, then checks the condition.</p></div>
+      <div class="mini"><h4>foreach</h4><p>Goes through every item of an array.</p></div>
+    </div>
+<pre><code>&lt;?php
+  for ($i = 1; $i &lt;= 5; $i++) {
+      echo $i . " ";
+  }
+
+  $colors = ["Red", "Green", "Blue"];
+  foreach ($colors as $c) {
+      echo $c . "&lt;br&gt;";
+  }
+?&gt;</code></pre>
+  </div>
+
+  <div class="card" id="mix">
+    <h2><span class="num">7</span> Mixing Decisions and Loops with HTML</h2>
+    <p>PHP can be placed inside HTML to build pages dynamically. For example, a loop can create table rows, and an <code>if</code> can show or hide content.</p>
+<pre><code>&lt;table border="1"&gt;
+&lt;?php for ($i = 1; $i &lt;= 5; $i++) { ?&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;?php echo $i; ?&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo ($i % 2 == 0) ? "Even" : "Odd"; ?&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;?php } ?&gt;
+&lt;/table&gt;</code></pre>
+    <p>Output of the code above:</p>
+    <div class="table-wrap"><table>
+      <tr><th>Number</th><th>Type</th></tr>
+      <tr><td>1</td><td>Odd</td></tr>
+      <tr><td>2</td><td>Even</td></tr>
+      <tr><td>3</td><td>Odd</td></tr>
+      <tr><td>4</td><td>Even</td></tr>
+      <tr><td>5</td><td>Odd</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card" id="strings">
+    <h2><span class="num">8</span> String Handling</h2>
+    <p>A string is a sequence of characters. It can be written in single or double quotes. Double quotes also read variables inside the text.</p>
+
+    <h3>Creating and accessing a string</h3>
+<pre><code>&lt;?php
+  $str = "Hello PHP";
+  echo $str[0];        // H  (first character)
+  echo $str[-1];       // P  (last character)
+  echo "Name: $name";  // variable inside double quotes
+?&gt;</code></pre>
+
+    <h3>Searching and replacing</h3>
+<pre><code>&lt;?php
+  echo strpos("Hello World", "World");            // 6
+  echo str_replace("World", "PHP", "Hello World"); // Hello PHP
+?&gt;</code></pre>
+
+    <h3>Formatting a string</h3>
+<pre><code>&lt;?php
+  printf("Price: %.2f", 99.5);     // Price: 99.50
+  echo number_format(1234567.891, 2); // 1,234,567.89
+  echo sprintf("Roll %05d", 42);   // Roll 00042
+?&gt;</code></pre>
+
+    <h3>Common built-in functions</h3>
+    <div class="table-wrap"><table>
+      <tr><th>Function</th><th>Purpose</th><th>Example</th></tr>
+      <tr><td><code>strlen()</code></td><td>Length of string</td><td><code>strlen("PHP")</code> → 3</td></tr>
+      <tr><td><code>strtoupper()</code></td><td>Convert to capitals</td><td><code>"PHP"</code></td></tr>
+      <tr><td><code>strtolower()</code></td><td>Convert to small letters</td><td><code>"php"</code></td></tr>
+      <tr><td><code>ucfirst()</code></td><td>First letter capital</td><td><code>"Hello"</code></td></tr>
+      <tr><td><code>strrev()</code></td><td>Reverse string</td><td><code>"PHP"</code> → "PHP"</td></tr>
+      <tr><td><code>substr()</code></td><td>Part of a string</td><td><code>substr("Hello",1,3)</code> → "ell"</td></tr>
+      <tr><td><code>trim()</code></td><td>Remove extra spaces</td><td><code>trim("  hi  ")</code></td></tr>
+      <tr><td><code>str_word_count()</code></td><td>Count words</td><td><code>str_word_count("a b c")</code> → 3</td></tr>
+    </table></div>
+  </div>
+
+  <!-- ===== QUIZ ===== -->
+  <div class="card quiz" id="quiz">
+    <h2>Quick Quiz</h2>
+    <p>Pick one answer for each question and press <b>Submit</b>.</p>
+
+    <div class="q" data-ans="c">
+      <p>1. How does PHP code begin?</p>
+      <label><input type="radio" name="q1" value="a"> &lt;script&gt;</label>
+      <label><input type="radio" name="q1" value="b"> &lt;php&gt;</label>
+      <label><input type="radio" name="q1" value="c"> &lt;?php</label>
+      <label><input type="radio" name="q1" value="d"> &lt;%</label>
+    </div>
+    <div class="q" data-ans="a">
+      <p>2. Every PHP variable name starts with which symbol?</p>
+      <label><input type="radio" name="q2" value="a"> $</label>
+      <label><input type="radio" name="q2" value="b"> #</label>
+      <label><input type="radio" name="q2" value="c"> @</label>
+      <label><input type="radio" name="q2" value="d"> &amp;</label>
+    </div>
+    <div class="q" data-ans="d">
+      <p>3. Which function returns the length of a string?</p>
+      <label><input type="radio" name="q3" value="a"> count()</label>
+      <label><input type="radio" name="q3" value="b"> size()</label>
+      <label><input type="radio" name="q3" value="c"> length()</label>
+      <label><input type="radio" name="q3" value="d"> strlen()</label>
+    </div>
+    <div class="q" data-ans="b">
+      <p>4. Which function is used to define a constant?</p>
+      <label><input type="radio" name="q4" value="a"> var()</label>
+      <label><input type="radio" name="q4" value="b"> define()</label>
+      <label><input type="radio" name="q4" value="c"> set()</label>
+      <label><input type="radio" name="q4" value="d"> fixed()</label>
+    </div>
+    <div class="q" data-ans="c">
+      <p>5. Which function replaces text inside a string?</p>
+      <label><input type="radio" name="q5" value="a"> strpos()</label>
+      <label><input type="radio" name="q5" value="b"> substr()</label>
+      <label><input type="radio" name="q5" value="c"> str_replace()</label>
+      <label><input type="radio" name="q5" value="d"> trim()</label>
+    </div>
+
+    <div class="quiz-actions">
+      <button class="btn" onclick="checkQuiz()">Submit Quiz</button>
+      <button class="btn light" onclick="resetQuiz()">Try Again</button>
+    </div>
+    <div class="score" id="score"></div>
+  </div>
+
+  <div class="pager">
+    <a class="btn light" href="unit1.html">&larr; Previous: Unit I</a>
+    <a class="btn" href="unit3.html">Next: Unit III &rarr;</a>
+  </div>
+</main>
+
+<footer>
+  <p>Submitted by <b class="glow">Krish Kumar Kalwan</b> &nbsp;|&nbsp; BCA 2nd Year &nbsp;|&nbsp; Roll No: <b>4270/25</b></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

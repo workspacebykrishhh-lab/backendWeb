@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit I – Internet Technologies &amp; Web Programming</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="logo" href="unit1.html"><span class="logo-badge">K</span><span class="logo-text">Krish Kalwan</span></a>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="menu-btn">&#9776;</label>
+    <nav class="menu">
+      <a href="unit1.html" class="active">Unit I</a>
+      <a href="unit2.html">Unit II</a>
+      <a href="unit3.html">Unit III</a>
+      <a href="unit4.html">Unit IV</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="unit-tag">UNIT I</span>
+  <h1>Internet Technologies &amp; Web Programming</h1>
+  <p>How the internet works, the protocols behind it, and the basics of HTML and JavaScript.</p>
+  <div class="chips">
+    <span>Krish Kumar Kalwan</span>
+    <span>Roll No: 4270/25</span>
+    <span>BCA 2nd Year</span>
+  </div>
+</section>
+
+<div class="topics">
+  <a href="#internet">Internet</a>
+  <a href="#protocols">Protocols</a>
+  <a href="#ip">IP Addressing</a>
+  <a href="#dns">DNS</a>
+  <a href="#html">HTML</a>
+  <a href="#js">JavaScript</a>
+  <a href="#scripting">Front-end vs Server-side</a>
+  <a href="#quiz">Quiz</a>
+</div>
+
+<main class="container">
+
+  <div class="card" id="internet">
+    <h2><span class="num">1</span> The Internet</h2>
+    <p>The Internet is a worldwide network of connected computers that share information using common rules called protocols. It is the system that carries websites, email, video calls and online services to billions of people.</p>
+    <div class="grid2">
+      <div class="mini"><h4>Client</h4><p>Your device and browser that asks for a web page.</p></div>
+      <div class="mini"><h4>Server</h4><p>A computer that stores the website and sends it back.</p></div>
+      <div class="mini"><h4>ISP</h4><p>Internet Service Provider, the company that gives you access to the internet.</p></div>
+    </div>
+  </div>
+
+  <div class="card" id="protocols">
+    <h2><span class="num">2</span> Internet Protocols</h2>
+    <p>A protocol is a set of rules that lets two computers talk to each other. These four are the most important.</p>
+    <div class="table-wrap"><table>
+      <tr><th>Protocol</th><th>Full Form</th><th>What it does</th></tr>
+      <tr><td><b>TCP/IP</b></td><td>Transmission Control Protocol / Internet Protocol</td><td>IP delivers data packets to the right address; TCP makes sure all packets arrive correctly and in order.</td></tr>
+      <tr><td><b>HTTP</b></td><td>HyperText Transfer Protocol</td><td>Used by browsers to request and receive web pages. HTTPS is the secure version.</td></tr>
+      <tr><td><b>DNS</b></td><td>Domain Name System</td><td>Converts website names into IP addresses.</td></tr>
+      <tr><td><b>SMTP</b></td><td>Simple Mail Transfer Protocol</td><td>Sends emails from a client to a mail server and between mail servers.</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card" id="ip">
+    <h2><span class="num">3</span> IP Addressing</h2>
+    <p>An IP address is a unique number given to every device on a network, like a house address for your computer.</p>
+    <div class="table-wrap"><table>
+      <tr><th>Version</th><th>Size</th><th>Example</th></tr>
+      <tr><td>IPv4</td><td>32 bits (4 numbers, 0–255)</td><td><code>192.168.1.10</code></td></tr>
+      <tr><td>IPv6</td><td>128 bits (hexadecimal)</td><td><code>2001:0db8:85a3::8a2e:0370:7334</code></td></tr>
+    </table></div>
+    <div class="note">IPv4 addresses are running out, so IPv6 was created to give a far larger number of addresses.</div>
+  </div>
+
+  <div class="card" id="dns">
+    <h2><span class="num">4</span> Domain Name System (DNS)</h2>
+    <p>People remember names like <code>google.com</code>, while computers use numbers. DNS works like a phone book that finds the IP address for a domain name.</p>
+    <ul>
+      <li>You type a website name in the browser.</li>
+      <li>The browser asks a DNS server for the IP address.</li>
+      <li>The DNS server replies with the IP address.</li>
+      <li>The browser connects to that IP and loads the page.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="html">
+    <h2><span class="num">5</span> Hypertext Markup Language (HTML)</h2>
+    <p>HTML is the standard language used to create the structure of a web page. It uses tags such as headings, paragraphs, links, images, lists and tables.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello, World!&lt;/h1&gt;
+    &lt;p&gt;This is my web page.&lt;/p&gt;
+    &lt;a href="https://example.com"&gt;Visit link&lt;/a&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    <div class="table-wrap"><table>
+      <tr><th>Tag</th><th>Purpose</th></tr>
+      <tr><td><code>&lt;h1&gt;–&lt;h6&gt;</code></td><td>Headings</td></tr>
+      <tr><td><code>&lt;p&gt;</code></td><td>Paragraph</td></tr>
+      <tr><td><code>&lt;a&gt;</code></td><td>Hyperlink</td></tr>
+      <tr><td><code>&lt;img&gt;</code></td><td>Image</td></tr>
+      <tr><td><code>&lt;table&gt;</code></td><td>Table</td></tr>
+      <tr><td><code>&lt;form&gt;</code></td><td>User input form</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card" id="js">
+    <h2><span class="num">6</span> JavaScript Programming Fundamentals</h2>
+    <p>JavaScript makes web pages interactive. It runs in the browser and can change content, respond to clicks and check form input.</p>
+<pre><code>let name = "Krish";        // variable
+const year = 2025;         // constant
+
+function greet(person) {   // function
+  return "Hello, " + person;
+}
+
+if (year &gt; 2020) {         // decision
+  console.log(greet(name));
+}
+
+for (let i = 1; i &lt;= 3; i++) {   // loop
+  console.log(i);
+}</code></pre>
+    <div class="grid2">
+      <div class="mini"><h4>Variables</h4><p><code>var</code>, <code>let</code> and <code>const</code> store data.</p></div>
+      <div class="mini"><h4>Data types</h4><p>Number, String, Boolean, Array, Object, Null, Undefined.</p></div>
+      <div class="mini"><h4>Control flow</h4><p><code>if/else</code>, <code>switch</code>, <code>for</code>, <code>while</code>.</p></div>
+      <div class="mini"><h4>Functions &amp; events</h4><p>Reusable code blocks that react to user actions.</p></div>
+    </div>
+  </div>
+
+  <div class="card" id="scripting">
+    <h2><span class="num">7</span> Front-end vs Server-side Scripting</h2>
+    <div class="table-wrap"><table>
+      <tr><th>Point</th><th>Front-end (Client-side)</th><th>Server-side</th></tr>
+      <tr><td>Runs on</td><td>User's browser</td><td>Web server</td></tr>
+      <tr><td>Examples</td><td>HTML, CSS, JavaScript</td><td>PHP, Python, Node.js</td></tr>
+      <tr><td>Purpose</td><td>Design and interactivity</td><td>Processing data, databases, security</td></tr>
+      <tr><td>Code visible to user</td><td>Yes</td><td>No, only the output is seen</td></tr>
+      <tr><td>Database access</td><td>No</td><td>Yes</td></tr>
+    </table></div>
+  </div>
+
+  <!-- ===== QUIZ ===== -->
+  <div class="card quiz" id="quiz">
+    <h2>Quick Quiz</h2>
+    <p>Pick one answer for each question and press <b>Submit</b>.</p>
+
+    <div class="q" data-ans="b">
+      <p>1. Which protocol is used to send emails?</p>
+      <label><input type="radio" name="q1" value="a"> HTTP</label>
+      <label><input type="radio" name="q1" value="b"> SMTP</label>
+      <label><input type="radio" name="q1" value="c"> DNS</label>
+      <label><input type="radio" name="q1" value="d"> FTP</label>
+    </div>
+    <div class="q" data-ans="a">
+      <p>2. What does DNS do?</p>
+      <label><input type="radio" name="q2" value="a"> Converts domain names into IP addresses</label>
+      <label><input type="radio" name="q2" value="b"> Encrypts web pages</label>
+      <label><input type="radio" name="q2" value="c"> Stores website files</label>
+      <label><input type="radio" name="q2" value="d"> Sends emails</label>
+    </div>
+    <div class="q" data-ans="b">
+      <p>3. How many bits are in an IPv4 address?</p>
+      <label><input type="radio" name="q3" value="a"> 16</label>
+      <label><input type="radio" name="q3" value="b"> 32</label>
+      <label><input type="radio" name="q3" value="c"> 64</label>
+      <label><input type="radio" name="q3" value="d"> 128</label>
+    </div>
+    <div class="q" data-ans="c">
+      <p>4. Which of these is a front-end scripting language?</p>
+      <label><input type="radio" name="q4" value="a"> PHP</label>
+      <label><input type="radio" name="q4" value="b"> MySQL</label>
+      <label><input type="radio" name="q4" value="c"> JavaScript</label>
+      <label><input type="radio" name="q4" value="d"> Python</label>
+    </div>
+    <div class="q" data-ans="d">
+      <p>5. What does HTML stand for?</p>
+      <label><input type="radio" name="q5" value="a"> High Text Machine Language</label>
+      <label><input type="radio" name="q5" value="b"> Hyperlinks and Text Markup Language</label>
+      <label><input type="radio" name="q5" value="c"> Home Tool Markup Language</label>
+      <label><input type="radio" name="q5" value="d"> HyperText Markup Language</label>
+    </div>
+
+    <div class="quiz-actions">
+      <button class="btn" onclick="checkQuiz()">Submit Quiz</button>
+      <button class="btn light" onclick="resetQuiz()">Try Again</button>
+    </div>
+    <div class="score" id="score"></div>
+  </div>
+
+  <div class="pager">
+    <span></span>
+    <a class="btn" href="unit2.html">Next: Unit II &rarr;</a>
+  </div>
+</main>
+
+<footer>
+  <p>Submitted by <b class="glow">Krish Kumar Kalwan</b> &nbsp;|&nbsp; BCA 2nd Year &nbsp;|&nbsp; Roll No: <b>4270/25</b></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

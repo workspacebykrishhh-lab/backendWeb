@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit III – Handling HTML Forms with PHP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="logo" href="unit1.html"><span class="logo-badge">K</span><span class="logo-text">Krish Kalwan</span></a>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="menu-btn">&#9776;</label>
+    <nav class="menu">
+      <a href="unit1.html">Unit I</a>
+      <a href="unit2.html">Unit II</a>
+      <a href="unit3.html" class="active">Unit III</a>
+      <a href="unit4.html">Unit IV</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="unit-tag">UNIT III</span>
+  <h1>Handling HTML Forms with PHP</h1>
+  <p>Creating forms, sending data with GET and POST, and validating input on the server.</p>
+  <div class="chips">
+    <span>Krish Kumar Kalwan</span>
+    <span>Roll No: 4270/25</span>
+    <span>BCA 2nd Year</span>
+  </div>
+</section>
+
+<div class="topics">
+  <a href="#form">Creating a Form</a>
+  <a href="#submit">GET &amp; POST</a>
+  <a href="#compare">GET vs POST</a>
+  <a href="#register">Registration Form</a>
+  <a href="#login">Login Form</a>
+  <a href="#quiz">Quiz</a>
+</div>
+
+<main class="container">
+
+  <div class="card" id="form">
+    <h2><span class="num">1</span> Creating a Form</h2>
+    <p>A form collects information from the user, such as a name or password. The <code>action</code> attribute says which PHP file will receive the data, and <code>method</code> says how it is sent (GET or POST).</p>
+<pre><code>&lt;form action="process.php" method="post"&gt;
+  &lt;label&gt;Name:&lt;/label&gt;
+  &lt;input type="text" name="username"&gt;
+  &lt;input type="submit" value="Send"&gt;
+&lt;/form&gt;</code></pre>
+    <div class="note">The <code>name</code> attribute of each input becomes the key used in PHP, for example <code>$_POST['username']</code>.</div>
+  </div>
+
+  <div class="card" id="submit">
+    <h2><span class="num">2</span> Submitting Data to the Server (GET and POST)</h2>
+    <p>When the user presses submit, the browser sends the form data to the server, where PHP reads it using special arrays called superglobals.</p>
+    <div class="grid2">
+      <div class="mini"><h4>GET</h4><p>Data is added to the URL, like <code>process.php?username=Krish</code>. Read with <code>$_GET</code>.</p></div>
+      <div class="mini"><h4>POST</h4><p>Data is sent inside the request body, hidden from the URL. Read with <code>$_POST</code>.</p></div>
+    </div>
+<pre><code>&lt;?php
+  $a = $_GET['username'];     // data sent by GET
+  $b = $_POST['username'];    // data sent by POST
+
+  echo "Hello, " . htmlspecialchars($b);
+?&gt;</code></pre>
+  </div>
+
+  <div class="card" id="compare">
+    <h2><span class="num">3</span> GET vs POST</h2>
+    <div class="table-wrap"><table>
+      <tr><th>Feature</th><th>GET</th><th>POST</th></tr>
+      <tr><td>Data shown in URL</td><td>Yes</td><td>No</td></tr>
+      <tr><td>Security</td><td>Less secure</td><td>More secure</td></tr>
+      <tr><td>Data size limit</td><td>Limited by URL length</td><td>No practical limit</td></tr>
+      <tr><td>Can be bookmarked</td><td>Yes</td><td>No</td></tr>
+      <tr><td>Best used for</td><td>Search, filters</td><td>Login, registration, file upload</td></tr>
+      <tr><td>PHP array</td><td><code>$_GET</code></td><td><code>$_POST</code></td></tr>
+    </table></div>
+  </div>
+
+  <div class="card" id="register">
+    <h2><span class="num">4</span> Student Registration Form with Server-side Validation</h2>
+    <p>Server-side validation means PHP checks the data after it reaches the server. This is important because browser checks can be bypassed. Here is how the form looks:</p>
+
+    <div class="form-preview">
+      <label>Full Name</label><input type="text" placeholder="Enter your name">
+      <label>Email</label><input type="email" placeholder="name@example.com">
+      <label>Phone</label><input type="text" placeholder="10 digit number">
+      <label>Course</label>
+      <select><option>BCA</option><option>MCA</option><option>B.Sc.</option></select>
+      <label>Password</label><input type="password" placeholder="At least 6 characters">
+      <p style="margin-top:14px"><button class="btn" type="button">Register</button></p>
+    </div>
+
+    <h3>register.php</h3>
+<pre><code>&lt;?php
+$errors = [];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name   = trim($_POST['name']);
+    $email  = trim($_POST['email']);
+    $phone  = trim($_POST['phone']);
+    $course = $_POST['course'];
+    $pass   = $_POST['password'];
+
+    if (empty($name) || !preg_match("/^[a-zA-Z ]+$/", $name))
+        $errors[] = "Name must contain only letters.";
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        $errors[] = "Enter a valid email address.";
+
+    if (!preg_match("/^[0-9]{10}$/", $phone))
+        $errors[] = "Phone number must be 10 digits.";
+
+    if (strlen($pass) &lt; 6)
+        $errors[] = "Password must be at least 6 characters.";
+
+    if (empty($errors)) {
+        echo "Registration successful!";
+    } else {
+        foreach ($errors as $e) {
+            echo "&lt;p style='color:red'&gt;$e&lt;/p&gt;";
+        }
+    }
+}
+?&gt;</code></pre>
+    <h3>Validation rules used</h3>
+    <ul>
+      <li><code>empty()</code> checks that a field is not blank.</li>
+      <li><code>trim()</code> removes extra spaces.</li>
+      <li><code>filter_var()</code> checks the email format.</li>
+      <li><code>preg_match()</code> checks text against a pattern.</li>
+      <li><code>htmlspecialchars()</code> protects the page from harmful input.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="login">
+    <h2><span class="num">5</span> Login Form with Server-side Validation</h2>
+    <p>The login form asks for a username and password. PHP checks that both are filled and then compares them with the stored values.</p>
+
+    <div class="form-preview">
+      <label>Username</label><input type="text" placeholder="Enter username">
+      <label>Password</label><input type="password" placeholder="Enter password">
+      <p style="margin-top:14px"><button class="btn" type="button">Login</button></p>
+    </div>
+
+    <h3>login.php</h3>
+<pre><code>&lt;?php
+session_start();
+$error = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user = trim($_POST['username']);
+    $pass = trim($_POST['password']);
+
+    if (empty($user) || empty($pass)) {
+        $error = "All fields are required.";
+    } elseif ($user == "admin" &amp;&amp; $pass == "admin123") {
+        $_SESSION['user'] = $user;       // remember the user
+        header("Location: welcome.php"); // go to next page
+        exit();
+    } else {
+        $error = "Invalid username or password.";
+    }
+}
+?&gt;
+
+&lt;form method="post"&gt;
+  &lt;input type="text" name="username"&gt;
+  &lt;input type="password" name="password"&gt;
+  &lt;input type="submit" value="Login"&gt;
+  &lt;p style="color:red"&gt;&lt;?php echo $error; ?&gt;&lt;/p&gt;
+&lt;/form&gt;</code></pre>
+    <div class="note">In a real project, passwords are stored as hashes using <code>password_hash()</code> and checked with <code>password_verify()</code>.</div>
+  </div>
+
+  <!-- ===== QUIZ ===== -->
+  <div class="card quiz" id="quiz">
+    <h2>Quick Quiz</h2>
+    <p>Pick one answer for each question and press <b>Submit</b>.</p>
+
+    <div class="q" data-ans="b">
+      <p>1. Which PHP array holds data sent using the POST method?</p>
+      <label><input type="radio" name="q1" value="a"> $_GET</label>
+      <label><input type="radio" name="q1" value="b"> $_POST</label>
+      <label><input type="radio" name="q1" value="c"> $_FORM</label>
+      <label><input type="radio" name="q1" value="d"> $_DATA</label>
+    </div>
+    <div class="q" data-ans="a">
+      <p>2. Which method shows the submitted data in the URL?</p>
+      <label><input type="radio" name="q2" value="a"> GET</label>
+      <label><input type="radio" name="q2" value="b"> POST</label>
+      <label><input type="radio" name="q2" value="c"> Both</label>
+      <label><input type="radio" name="q2" value="d"> Neither</label>
+    </div>
+    <div class="q" data-ans="b">
+      <p>3. Which method is better for sending a password?</p>
+      <label><input type="radio" name="q3" value="a"> GET</label>
+      <label><input type="radio" name="q3" value="b"> POST</label>
+      <label><input type="radio" name="q3" value="c"> Either, no difference</label>
+      <label><input type="radio" name="q3" value="d"> None</label>
+    </div>
+    <div class="q" data-ans="c">
+      <p>4. Which function checks whether a field is blank?</p>
+      <label><input type="radio" name="q4" value="a"> blank()</label>
+      <label><input type="radio" name="q4" value="b"> isnull()</label>
+      <label><input type="radio" name="q4" value="c"> empty()</label>
+      <label><input type="radio" name="q4" value="d"> check()</label>
+    </div>
+    <div class="q" data-ans="d">
+      <p>5. Why is server-side validation needed?</p>
+      <label><input type="radio" name="q5" value="a"> It makes the page look better</label>
+      <label><input type="radio" name="q5" value="b"> It loads images faster</label>
+      <label><input type="radio" name="q5" value="c"> It replaces HTML</label>
+      <label><input type="radio" name="q5" value="d"> Browser checks can be bypassed, so the server must verify data</label>
+    </div>
+
+    <div class="quiz-actions">
+      <button class="btn" onclick="checkQuiz()">Submit Quiz</button>
+      <button class="btn light" onclick="resetQuiz()">Try Again</button>
+    </div>
+    <div class="score" id="score"></div>
+  </div>
+
+  <div class="pager">
+    <a class="btn light" href="unit2.html">&larr; Previous: Unit II</a>
+    <a class="btn" href="unit4.html">Next: Unit IV &rarr;</a>
+  </div>
+</main>
+
+<footer>
+  <p>Submitted by <b class="glow">Krish Kumar Kalwan</b> &nbsp;|&nbsp; BCA 2nd Year &nbsp;|&nbsp; Roll No: <b>4270/25</b></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

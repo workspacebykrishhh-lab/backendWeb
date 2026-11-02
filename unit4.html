@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit IV – Database Connectivity with MySQL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a class="logo" href="unit1.html"><span class="logo-badge">K</span><span class="logo-text">Krish Kalwan</span></a>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="menu-btn">&#9776;</label>
+    <nav class="menu">
+      <a href="unit1.html">Unit I</a>
+      <a href="unit2.html">Unit II</a>
+      <a href="unit3.html">Unit III</a>
+      <a href="unit4.html" class="active">Unit IV</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="unit-tag">UNIT IV</span>
+  <h1>Database Connectivity with MySQL</h1>
+  <p>Connecting PHP to a database, creating tables, and inserting, retrieving and changing data.</p>
+  <div class="chips">
+    <span>Krish Kumar Kalwan</span>
+    <span>Roll No: 4270/25</span>
+    <span>BCA 2nd Year</span>
+  </div>
+</section>
+
+<div class="topics">
+  <a href="#connect">Connectivity</a>
+  <a href="#create">Create Database &amp; Table</a>
+  <a href="#insert">Insert</a>
+  <a href="#retrieve">Retrieve</a>
+  <a href="#manipulate">Update &amp; Delete</a>
+  <a href="#quiz">Quiz</a>
+</div>
+
+<main class="container">
+
+  <div class="card" id="connect">
+    <h2><span class="num">1</span> Connectivity with the Database</h2>
+    <p>MySQL is a popular database that stores data in tables. PHP connects to it using the <code>mysqli</code> extension. You need the server name, username, password and database name.</p>
+<pre><code>&lt;?php
+$conn = mysqli_connect("localhost", "root", "", "college");
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+echo "Connected successfully";
+?&gt;</code></pre>
+    <div class="note">With XAMPP, the default server is <code>localhost</code>, user is <code>root</code> and the password is empty.</div>
+  </div>
+
+  <div class="card" id="create">
+    <h2><span class="num">2</span> Database Creation and Creating Tables</h2>
+    <p>First a database is created, then tables are added inside it. A table has columns (fields) and rows (records).</p>
+<pre><code>CREATE DATABASE college;
+USE college;
+
+CREATE TABLE students (
+  id     INT AUTO_INCREMENT PRIMARY KEY,
+  name   VARCHAR(50) NOT NULL,
+  email  VARCHAR(60),
+  course VARCHAR(30)
+);</code></pre>
+    <p>The same can be run from PHP:</p>
+<pre><code>&lt;?php
+mysqli_query($conn, "CREATE DATABASE college");
+
+$sql = "CREATE TABLE students (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          name VARCHAR(50) NOT NULL,
+          email VARCHAR(60),
+          course VARCHAR(30))";
+
+if (mysqli_query($conn, $sql)) {
+    echo "Table created";
+}
+?&gt;</code></pre>
+    <h3>Table structure</h3>
+    <div class="table-wrap"><table>
+      <tr><th>Column</th><th>Type</th><th>Meaning</th></tr>
+      <tr><td>id</td><td>INT, Primary Key</td><td>Unique number, increases automatically</td></tr>
+      <tr><td>name</td><td>VARCHAR(50)</td><td>Student name (required)</td></tr>
+      <tr><td>email</td><td>VARCHAR(60)</td><td>Email address</td></tr>
+      <tr><td>course</td><td>VARCHAR(30)</td><td>Course name</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card" id="insert">
+    <h2><span class="num">3</span> Insertion of Data</h2>
+    <p>The <code>INSERT INTO</code> statement adds a new record to a table.</p>
+<pre><code>&lt;?php
+$sql = "INSERT INTO students (name, email, course)
+        VALUES ('Krish', 'krish@mail.com', 'BCA')";
+
+if (mysqli_query($conn, $sql)) {
+    echo "Record added";
+} else {
+    echo "Error: " . mysqli_error($conn);
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="card" id="retrieve">
+    <h2><span class="num">4</span> Retrieval of Data</h2>
+    <p>The <code>SELECT</code> statement reads records. PHP then loops through the result using <code>mysqli_fetch_assoc()</code>, which gives one row at a time as an array.</p>
+<pre><code>&lt;?php
+$result = mysqli_query($conn, "SELECT * FROM students");
+
+echo "&lt;table border='1'&gt;";
+while ($row = mysqli_fetch_assoc($result)) {
+    echo "&lt;tr&gt;
+            &lt;td&gt;" . $row['id'] . "&lt;/td&gt;
+            &lt;td&gt;" . $row['name'] . "&lt;/td&gt;
+            &lt;td&gt;" . $row['course'] . "&lt;/td&gt;
+          &lt;/tr&gt;";
+}
+echo "&lt;/table&gt;";
+?&gt;</code></pre>
+    <p>Example output on the web page:</p>
+    <div class="table-wrap"><table>
+      <tr><th>ID</th><th>Name</th><th>Email</th><th>Course</th></tr>
+      <tr><td>1</td><td>Krish</td><td>krish@mail.com</td><td>BCA</td></tr>
+      <tr><td>2</td><td>Aman</td><td>aman@mail.com</td><td>BCA</td></tr>
+      <tr><td>3</td><td>Riya</td><td>riya@mail.com</td><td>MCA</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card" id="manipulate">
+    <h2><span class="num">5</span> Data Manipulation</h2>
+    <p>Existing records can be changed with <code>UPDATE</code> or removed with <code>DELETE</code>. Always use a <code>WHERE</code> condition, otherwise every row is affected.</p>
+<pre><code>&lt;?php
+// UPDATE a record
+mysqli_query($conn, "UPDATE students SET course='MCA' WHERE id=2");
+
+// DELETE a record
+mysqli_query($conn, "DELETE FROM students WHERE id=3");
+
+// close the connection
+mysqli_close($conn);
+?&gt;</code></pre>
+    <div class="table-wrap"><table>
+      <tr><th>Operation</th><th>SQL Command</th><th>Purpose</th></tr>
+      <tr><td>Create</td><td><code>INSERT</code></td><td>Add new data</td></tr>
+      <tr><td>Read</td><td><code>SELECT</code></td><td>View data</td></tr>
+      <tr><td>Update</td><td><code>UPDATE</code></td><td>Change data</td></tr>
+      <tr><td>Delete</td><td><code>DELETE</code></td><td>Remove data</td></tr>
+    </table></div>
+  </div>
+
+  <!-- ===== QUIZ ===== -->
+  <div class="card quiz" id="quiz">
+    <h2>Quick Quiz</h2>
+    <p>Pick one answer for each question and press <b>Submit</b>.</p>
+
+    <div class="q" data-ans="a">
+      <p>1. Which function connects PHP to MySQL?</p>
+      <label><input type="radio" name="q1" value="a"> mysqli_connect()</label>
+      <label><input type="radio" name="q1" value="b"> mysql_join()</label>
+      <label><input type="radio" name="q1" value="c"> db_open()</label>
+      <label><input type="radio" name="q1" value="d"> connect_php()</label>
+    </div>
+    <div class="q" data-ans="c">
+      <p>2. Which SQL command creates a new database?</p>
+      <label><input type="radio" name="q2" value="a"> NEW DATABASE</label>
+      <label><input type="radio" name="q2" value="b"> MAKE DATABASE</label>
+      <label><input type="radio" name="q2" value="c"> CREATE DATABASE</label>
+      <label><input type="radio" name="q2" value="d"> ADD DATABASE</label>
+    </div>
+    <div class="q" data-ans="b">
+      <p>3. Which statement is used to read data from a table?</p>
+      <label><input type="radio" name="q3" value="a"> GET</label>
+      <label><input type="radio" name="q3" value="b"> SELECT</label>
+      <label><input type="radio" name="q3" value="c"> FETCH</label>
+      <label><input type="radio" name="q3" value="d"> SHOW ROWS</label>
+    </div>
+    <div class="q" data-ans="d">
+      <p>4. Which statement changes existing records?</p>
+      <label><input type="radio" name="q4" value="a"> INSERT</label>
+      <label><input type="radio" name="q4" value="b"> CHANGE</label>
+      <label><input type="radio" name="q4" value="c"> MODIFY ROW</label>
+      <label><input type="radio" name="q4" value="d"> UPDATE</label>
+    </div>
+    <div class="q" data-ans="a">
+      <p>5. Which function fetches a result row as an associative array?</p>
+      <label><input type="radio" name="q5" value="a"> mysqli_fetch_assoc()</label>
+      <label><input type="radio" name="q5" value="b"> mysqli_get_row()</label>
+      <label><input type="radio" name="q5" value="c"> mysqli_result()</label>
+      <label><input type="radio" name="q5" value="d"> mysqli_array()</label>
+    </div>
+
+    <div class="quiz-actions">
+      <button class="btn" onclick="checkQuiz()">Submit Quiz</button>
+      <button class="btn light" onclick="resetQuiz()">Try Again</button>
+    </div>
+    <div class="score" id="score"></div>
+  </div>
+
+  <div class="pager">
+    <a class="btn light" href="unit3.html">&larr; Previous: Unit III</a>
+    <a class="btn" href="unit1.html">Back to Unit I</a>
+  </div>
+</main>
+
+<footer>
+  <p>Submitted by <b class="glow">Krish Kumar Kalwan</b> &nbsp;|&nbsp; BCA 2nd Year &nbsp;|&nbsp; Roll No: <b>4270/25</b></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
